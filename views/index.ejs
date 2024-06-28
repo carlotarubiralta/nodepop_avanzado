@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nodepop</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+</head>
+<body>
+  <% include _header %>
+
+  <h1>Nodepop</h1>
+  <h2>Lista de Anuncios</h2>
+
+  <!-- Formulario de filtros -->
+  <form method="get" action="/">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" value="<%= nombre %>">
+
+    <label for="venta">Tipo:</label>
+    <select id="venta" name="venta">
+      <option value="">Todos</option>
+      <option value="true" <%= venta === 'true' ? 'selected' : '' %>>Venta</option>
+      <option value="false" <%= venta === 'false' ? 'selected' : '' %>>Búsqueda</option>
+    </select>
+
+    <label for="precio">Precio:</label>
+    <input type="text" id="precio" name="precio" value="<%= precio %>">
+
+    <label for="tag">Tag:</label>
+    <select id="tag" name="tag">
+      <option value="">Todos</option>
+      <option value="work" <%= tag === 'work' ? 'selected' : '' %>>Work</option>
+      <option value="lifestyle" <%= tag === 'lifestyle' ? 'selected' : '' %>>Lifestyle</option>
+      <option value="motor" <%= tag === 'motor' ? 'selected' : '' %>>Motor</option>
+      <option value="mobile" <%= tag === 'mobile' ? 'selected' : '' %>>Mobile</option>
+    </select>
+
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <div class="grid-container">
+    <% if (anuncios.length) { %>
+      <% anuncios.forEach(anuncio => { %>
+        <div class="grid-item">
+          <h3><%= anuncio.nombre %></h3>
+          <p>Tipo: <%= anuncio.venta ? 'Venta' : 'Búsqueda' %></p>
+          <p>Precio: <%= anuncio.precio %></p>
+          <p>Tags: <%= anuncio.tags.join(', ') %></p>
+          <img src="/images/anuncios/<%= anuncio.foto %>" alt="<%= anuncio.nombre %>" width="100">
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>No hay anuncios disponibles.</p>
+    <% } %>
+  </div>
+</body>
+</html>
