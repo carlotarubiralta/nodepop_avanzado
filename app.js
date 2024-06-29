@@ -9,7 +9,7 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const connectMongoose = require('./lib/connectMongoose');
 
 const indexRouter = require('./routes/index');
-const anunciosRouter = require('./routes/anuncios');
+const anunciosApiRouter = require('./routes/apiv1/anuncios');
 
 const app = express();
 
@@ -32,7 +32,7 @@ const swaggerOptions = {
       }
     ]
   },
-  apis: ['./routes/*.js']
+  apis: ['./routes/apiv1/*.js']
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas
 app.use('/', indexRouter);
-app.use('/apiv1', anunciosRouter);
+app.use('/apiv1', anunciosApiRouter);
 
 // Ruta para la documentación de Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
