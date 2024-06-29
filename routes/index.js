@@ -1,44 +1,48 @@
-var express = require('express');
-var router = express.Router();
-var Anuncio = require('../models/Anuncio');
+const express = require('express');
+const router = express.Router();
+const Anuncio = require('../models/Anuncio');
 
 /* GET home page. */
-router.get('/', async function(req, res, next) {
+router.get('/', async (req, res, next) => {
   try {
-    const { nombre, venta, precio, tag, start, limit, sort } = req.query;
+    const { nombre, venta, precioMin, precioMax, tag, page = 1, limit = 8, sort = 'nombre' } = req.query;
     const filters = {};
 
     if (nombre) {
-      filters.nombre = new RegExp('^' + nombre, 'i'); // Filtrar por nombre que empiece con el dato buscado
+      filters.nombre = new RegExp(`^${nombre}`, 'i'); // Filtrar por nombre que empiece con el dato buscado
     }
-    if (venta !== undefined) {
+    if (venta !== undefined && venta !== '') {
       filters.venta = venta === 'true'; // Filtrar por tipo de anuncio (venta o búsqueda)
     }
-    if (precio) {
-      const [minPrecio, maxPrecio] = precio.split('-').map(Number);
+    if (precioMin || precioMax) {
       filters.precio = {};
-      if (!isNaN(minPrecio)) filters.precio.$gte = minPrecio;
-      if (!isNaN(maxPrecio)) filters.precio.$lte = maxPrecio;
+      if (precioMin) filters.precio.$gte = Number(precioMin);
+      if (precioMax) filters.precio.$lte = Number(precioMax);
     }
     if (tag) {
       filters.tags = tag; // Filtrar por tag
     }
 
     const anuncios = await Anuncio.find(filters)
-      .skip(Number(start) || 0)
-      .limit(Number(limit) || 10)
-      .sort(sort || 'nombre');
+      .skip((Number(page) - 1) * limit)
+      .limit(Number(limit))
+      .sort(sort);
+
+    const totalAnuncios = await Anuncio.countDocuments(filters);
+    const totalPages = Math.ceil(totalAnuncios / limit);
 
     res.render('index', { 
       title: 'Nodepop', 
-      anuncios: anuncios, 
+      anuncios, 
       nombre: nombre || '', 
       venta: venta || '', 
-      precio: precio || '', 
+      precioMin: precioMin || '', 
+      precioMax: precioMax || '', 
       tag: tag || '',
-      start: start || 0,
-      limit: limit || 10,
-      sort: sort || 'nombre'
+      page: Number(page),
+      limit: Number(limit),
+      sort,
+      totalPages
     });
   } catch (err) {
     next(err);

@@ -1,56 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nodepop</title>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <link rel='stylesheet' href='https://bootswatch.com/united/bootstrap.min.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
   <% include _header %>
 
-  <h1>Nodepop</h1>
-  <h2>Lista de Anuncios</h2>
+  <main>
+    <h1>Nodepop</h1>
+    <h2>Lista de Anuncios</h2>
 
-  <!-- Formulario de filtros -->
-  <form method="get" action="/">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" value="<%= nombre %>">
+    <!-- Formulario de filtros -->
+    <form method="get" action="/" class="form-inline">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="<%= nombre %>" class="form-control">
+      </div>
 
-    <label for="venta">Tipo:</label>
-    <select id="venta" name="venta">
-      <option value="">Todos</option>
-      <option value="true" <%= venta === 'true' ? 'selected' : '' %>>Venta</option>
-      <option value="false" <%= venta === 'false' ? 'selected' : '' %>>Búsqueda</option>
-    </select>
+      <div class="form-group">
+        <label for="venta">Tipo:</label>
+        <select id="venta" name="venta" class="form-control">
+          <option value="">Todos</option>
+          <option value="true" <%= venta === 'true' ? 'selected' : '' %>>Venta</option>
+          <option value="false" <%= venta === 'false' ? 'selected' : '' %>>Búsqueda</option>
+        </select>
+      </div>
 
-    <label for="precio">Precio:</label>
-    <input type="text" id="precio" name="precio" value="<%= precio %>">
+      <div class="form-group">
+        <label for="precioMin">Precio Min:</label>
+        <input type="text" id="precioMin" name="precioMin" value="<%= precioMin %>" class="form-control">
+      </div>
 
-    <label for="tag">Tag:</label>
-    <select id="tag" name="tag">
-      <option value="">Todos</option>
-      <option value="work" <%= tag === 'work' ? 'selected' : '' %>>Work</option>
-      <option value="lifestyle" <%= tag === 'lifestyle' ? 'selected' : '' %>>Lifestyle</option>
-      <option value="motor" <%= tag === 'motor' ? 'selected' : '' %>>Motor</option>
-      <option value="mobile" <%= tag === 'mobile' ? 'selected' : '' %>>Mobile</option>
-    </select>
+      <div class="form-group">
+        <label for="precioMax">Precio Max:</label>
+        <input type="text" id="precioMax" name="precioMax" value="<%= precioMax %>" class="form-control">
+      </div>
 
-    <button type="submit">Filtrar</button>
-  </form>
+      <div class="form-group">
+        <label for="tag">Tag:</label>
+        <select id="tag" name="tag" class="form-control">
+          <option value="">Todos</option>
+          <option value="work" <%= tag === 'work' ? 'selected' : '' %>>Work</option>
+          <option value="lifestyle" <%= tag === 'lifestyle' ? 'selected' : '' %>>Lifestyle</option>
+          <option value="motor" <%= tag === 'motor' ? 'selected' : '' %>>Motor</option>
+          <option value="mobile" <%= tag === 'mobile' ? 'selected' : '' %>>Mobile</option>
+        </select>
+      </div>
 
-  <div class="grid-container">
-    <% if (anuncios.length) { %>
-      <% anuncios.forEach(anuncio => { %>
-        <div class="grid-item">
-          <h3><%= anuncio.nombre %></h3>
-          <p>Tipo: <%= anuncio.venta ? 'Venta' : 'Búsqueda' %></p>
-          <p>Precio: <%= anuncio.precio %></p>
-          <p>Tags: <%= anuncio.tags.join(', ') %></p>
-          <img src="/images/anuncios/<%= anuncio.foto %>" alt="<%= anuncio.nombre %>" width="100">
-        </div>
-      <% }) %>
-    <% } else { %>
-      <p>No hay anuncios disponibles.</p>
-    <% } %>
-  </div>
+      <button type="submit" class="btn btn-primary">Filtrar</button>
+      <a href="/" class="btn btn-secondary">Borrar</a>
+    </form>
+
+    <div class="grid-container">
+      <% if (anuncios.length) { %>
+        <% anuncios.forEach(anuncio => { %>
+          <div class="grid-item">
+            <h3><%= anuncio.nombre %></h3>
+            <p>Tipo: <%= anuncio.venta ? 'Venta' : 'Búsqueda' %></p>
+            <p>Precio: <%= anuncio.precio %></p>
+            <p>Tags: <%= anuncio.tags.join(', ') %></p>
+            <img src="/images/anuncios/<%= anuncio.foto %>" alt="<%= anuncio.nombre %>" width="100">
+          </div>
+        <% }) %>
+      <% } else { %>
+        <p>No hay anuncios disponibles.</p>
+      <% } %>
+    </div>
+
+    <!-- Paginación -->
+    <div class="pagination">
+      <% if (page > 1) { %>
+        <a href="?nombre=<%= nombre %>&venta=<%= venta %>&precioMin=<%= precioMin %>&precioMax=<%= precioMax %>&tag=<%= tag %>&page=<%= page - 1 %>&limit=<%= limit %>&sort=<%= sort %>">Anterior</a>
+      <% } %>
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <a href="?nombre=<%= nombre %>&venta=<%= venta %>&precioMin=<%= precioMin %>&precioMax=<%= precioMax %>&tag=<%= tag %>&page=<%= i %>&limit=<%= limit %>&sort=<%= sort %>" class="<%= page === i ? 'active' : '' %>"><%= i %></a>
+      <% } %>
+      <% if (page < totalPages) { %>
+        <a href="?nombre=<%= nombre %>&venta=<%= venta %>&precioMin=<%= precioMin %>&precioMax=<%= precioMax %>&tag=<%= tag %>&page=<%= page + 1 %>&limit=<%= limit %>&sort=<%= sort %>">Siguiente</a>
+      <% } %>
+    </div>
+  </main>
+
+  <% include _footer %>
 </body>
 </html>

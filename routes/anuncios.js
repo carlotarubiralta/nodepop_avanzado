@@ -94,11 +94,11 @@ const Anuncio = require('../models/Anuncio');
 
 router.get('/anuncios', async (req, res, next) => {
   try {
-    const { nombre, venta, precio, tag, start, limit, sort } = req.query;
+    const { nombre, venta, precio, tag, start = 0, limit = 10, sort = 'nombre' } = req.query;
     const filters = {};
 
     if (nombre) {
-      filters.nombre = new RegExp('^' + nombre, 'i'); // Filtrar por nombre que empiece con el dato buscado
+      filters.nombre = new RegExp(`^${nombre}`, 'i'); // Filtrar por nombre que empiece con el dato buscado
     }
     if (venta !== undefined) {
       filters.venta = venta === 'true'; // Filtrar por tipo de anuncio (venta o búsqueda)
@@ -114,9 +114,9 @@ router.get('/anuncios', async (req, res, next) => {
     }
 
     const anuncios = await Anuncio.find(filters)
-      .skip(Number(start) || 0)
-      .limit(Number(limit) || 10)
-      .sort(sort || 'nombre');
+      .skip(Number(start))
+      .limit(Number(limit))
+      .sort(sort);
 
     res.json({ success: true, results: anuncios });
   } catch (err) {
