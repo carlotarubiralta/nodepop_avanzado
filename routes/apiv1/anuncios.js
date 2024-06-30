@@ -103,4 +103,6 @@ router.post('/anuncios', upload.single('foto'), anunciosController.createAnuncio
 // Ruta para actualizar la imagen de un anuncio existente
 router.put('/anuncios/:id/foto', upload.single('foto'), anunciosController.updateAnuncioFoto);
 
+router.delete('/anuncios/:id', anunciosController.deleteAnuncio);
+
 module.exports = router;

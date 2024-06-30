@@ -4,77 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= __('title') %></title>
-  <link rel='stylesheet' href='https://bootswatch.com/united/bootstrap.min.css' />
-  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://bootswatch.com/united/bootstrap.min.css" />
+  <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 <body>
   <% include _header %>
-
-  <main>
-    <h1><%= __('list_of_ads') %></h1>
-
-    <!-- Formulario de filtros -->
-    <form method="get" action="/" class="form-inline">
-      <input type="hidden" name="lang" value="<%= getLocale() %>">
-      <label for="nombre"><%= __('name') %>:</label>
-      <input type="text" id="nombre" name="nombre" value="<%= nombre %>">
-
-      <label for="venta"><%= __('type') %>:</label>
-      <select id="venta" name="venta">
-        <option value="all"><%= __('all') %></option>
-        <option value="true" <%= venta === 'true' ? 'selected' : '' %>><%= __('sale') %></option>
-        <option value="false" <%= venta === 'false' ? 'selected' : '' %>><%= __('search') %></option>
-      </select>
-
-      <label for="precioMin"><%= __('price_min') %>:</label>
-      <input type="text" id="precioMin" name="precioMin" value="<%= precioMin %>">
-
-      <label for="precioMax"><%= __('price_max') %>:</label>
-      <input type="text" id="precioMax" name="precioMax" value="<%= precioMax %>">
-
-      <label for="tag"><%= __('tag') %>:</label>
-      <select id="tag" name="tag">
-        <option value=""><%= __('all') %></option>
-        <option value="work" <%= tag === 'work' ? 'selected' : '' %>><%= __('tag_work') %></option>
-        <option value="lifestyle" <%= tag === 'lifestyle' ? 'selected' : '' %>><%= __('tag_lifestyle') %></option>
-        <option value="motor" <%= tag === 'motor' ? 'selected' : '' %>><%= __('tag_motor') %></option>
-        <option value="mobile" <%= tag === 'mobile' ? 'selected' : '' %>><%= __('tag_mobile') %></option>
-      </select>
-
-      <button type="submit"><%= __('filter') %></button>
-      <a href="/"><button type="button" class="btn-secondary"><%= __('clear_filters') %></button></a>
-    </form>
-
-    <div class="grid-container">
-      <% if (anuncios.length) { %>
-        <% anuncios.forEach(anuncio => { %>
-          <div class="grid-item">
-            <h3><%= anuncio.nombre %></h3>
-            <p><%= __('type') %>: <%= anuncio.venta ? __('sale') : __('search') %></p>
-            <p><%= __('price') %>: <%= anuncio.precio %></p>
-            <p><%= __('tags') %>: <%= anuncio.tags.join(', ') %></p>
-            <img src="/images/anuncios/<%= anuncio.foto %>" alt="<%= anuncio.nombre %>" width="100">
-          </div>
-        <% }) %>
-      <% } else { %>
-        <p><%= __('no_ads') %></p>
-      <% } %>
-    </div>
-
-    <!-- Paginación -->
-    <div class="pagination">
-      <% if (page > 1) { %>
-        <a href="?<%= `nombre=${nombre}&venta=${venta}&precioMin=${precioMin}&precioMax=${precioMax}&tag=${tag}&page=${page - 1}&limit=${limit}&sort=${sort}&lang=${getLocale()}` %>"><%= __('previous') %></a>
-      <% } %>
-      <% for (let i = 1; i <= totalPages; i++) { %>
-        <a href="?<%= `nombre=${nombre}&venta=${venta}&precioMin=${precioMin}&precioMax=${precioMax}&tag=${tag}&page=${i}&limit=${limit}&sort=${sort}&lang=${getLocale()}` %>"><%= i %></a>
-      <% } %>
-      <% if (page < totalPages) { %>
-        <a href="?<%= `nombre=${nombre}&venta=${venta}&precioMin=${precioMin}&precioMax=${precioMax}&tag=${tag}&page=${page + 1}&limit=${limit}&sort=${sort}&lang=${getLocale()}` %>"><%= __('next') %></a>
-      <% } %>
-    </div>
-  </main>
-
-  <% include _footer %>
-</body>
-</html>
+    <main>
+      <h1><%= __('list_of_ads') %></h1>
+  
+      <!-- Formulario de filtros -->
+      <form method="get" action="/" class="form-inline">
+        <input type="hidden" name="lang" value="<%= getLocale() %>">
+        <label for="nombre"><%= __('name') %>:</label>
+        <input type="text" id="nombre" name="nombre" value="<%= nombre %>">
+  
+        <label for="venta"><%= __('type') %>:</label>
+        <select id="venta" name="venta">
+          <option value="all"><%= __('all') %></option>
+          <option value="true" <%= venta === 'true' ? 'selected' : '' %>><%= __('sale') %></option>
+          <option value="false" <%= venta === 'false' ? 'selected' : '' %>><%= __('search') %></option>
+        </select>
+  
+        <label for="precioMin"><%= __('price_min') %>:</label>
+        <input type="text" id="precioMin" name="precioMin" value="<%= precioMin %>">
+  
+        <label for="precioMax"><%= __('price_max') %>:</label>
+        <input type="text" id="precioMax" name="precioMax" value="<%= precioMax %>">
+  
+        <label for="tag"><%= __('tag') %>:</label>
+        <select id="tag" name="tag">
+          <option value=""><%= __('all') %></option>
+          <option value="work" <%= tag === 'work' ? 'selected' : '' %>><%= __('tag_work') %></option>
+          <option value="lifestyle" <%= tag === 'lifestyle' ? 'selected' : '' %>><%= __('tag_lifestyle') %></option>
+          <option value="motor" <%= tag === 'motor' ? 'selected' : '' %>><%= __('tag_motor') %></option>
+          <option value="mobile" <%= tag === 'mobile' ? 'selected' : '' %>><%= __('tag_mobile') %></option>
+        </select>
+  
+        <button type="submit"><%= __('filter') %></button>
+        <a href="/"><button type="button" class="btn-secondary"><%= __('clear_filters') %></button></a>
+      </form>
+  
+      <div class="grid-container">
+        <% if (anuncios.length) { %>
+          <% anuncios.forEach(anuncio => { %>
+            <div class="grid-item">
+              <h3><%= anuncio.nombre %></h3>
+              <p><%= __('type') %>: <%= anuncio.venta ? __('sale') : __('search') %></p>
+              <p><%= __('price') %>: <%= anuncio.precio %></p>
+              <p><%= __('tags') %>: <%= anuncio.tags.join(', ') %></p>
+              <img src="/images/anuncios/<%= anuncio.foto %>" alt="<%= anuncio.nombre %>" width="100">
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p><%= __('no_ads') %></p>
+        <% } %>
+      </div>
+  
+      <!-- Paginación -->
+      <div class="pagination">
+        <% if (page > 1) { %>
+          <a href="?<%= `nombre=${nombre}&venta=${venta}&precioMin=${precioMin}&precioMax=${precioMax}&tag=${tag}&page=${page - 1}&limit=${limit}&sort=${sort}&lang=${getLocale()}` %>"><%= __('previous') %></a>
+        <% } %>
+        <% for (let i = 1; i <= totalPages; i++) { %>
+          <a href="?<%= `nombre=${nombre}&venta=${venta}&precioMin=${precioMin}&precioMax=${precioMax}&tag=${tag}&page=${i}&limit=${limit}&sort=${sort}&lang=${getLocale()}` %>"><%= i %></a>
+        <% } %>
+        <% if (page < totalPages) { %>
+          <a href="?<%= `nombre=${nombre}&venta=${venta}&precioMin=${precioMin}&precioMax=${precioMax}&tag=${tag}&page=${page + 1}&limit=${limit}&sort=${sort}&lang=${getLocale()}` %>"><%= __('next') %></a>
+        <% } %>
+      </div>
+    </main>
+  
+    <% include _footer %>
+  </body>
+  </html>

@@ -4,7 +4,16 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "initDB": "node initDB.js"
+    "initDB": "node initDB.js",
+    "dev": "DEBUG=nodepop:* nodemon ./bin/www",
+    "devPM2": "pm2 start pm2.config.js && pm2 logs",
+    "hints": "eslint . || true",
+    "installDB": "node install_db.js",
+    "thumbnailCreator-service": "node microservices/thumbnailCreator.service.js",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -28,10 +37,13 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.1.0",
-    "@eslint/js": "^9.5.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.3",
-    "globals": "^15.6.0"
+    "eslint": "^4.10.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^27.0.6",
+    "supertest": "^6.1.3"
   }
 }

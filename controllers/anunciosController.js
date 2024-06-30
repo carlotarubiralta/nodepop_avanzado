@@ -4,7 +4,13 @@ const { publish } = require('../lib/queue');
 
 exports.getAnuncios = async (req, res, next) => {
   try {
-    const { nombre, venta, precioMin, precioMax, tag, page = 1, limit = 8, sort = '_id' } = req.query;
+    const { nombre, venta, precioMin, precioMax, tag, page = 1, limit = 8, sort = '_id', lang } = req.query;
+
+    // Establecer el idioma si se proporciona en la consulta
+    if (lang) {
+      res.setLocale(lang);
+    }
+
     const filters = {};
 
     if (nombre) {
@@ -33,13 +39,10 @@ exports.getAnuncios = async (req, res, next) => {
     const totalPages = Math.ceil(totalAnuncios / limit);
 
     const anunciosTraducidos = anuncios.map(anuncio => {
-      const nombreTraducido = req.getLocale() === 'en' ? (anuncio.traducciones.en || anuncio.nombre) : anuncio.nombre;
+      const nombreTraducido = req.getLocale() === 'en' ? (anuncio.traducciones?.en || anuncio.nombre) : anuncio.nombre;
       const tagsTraducidos = anuncio.tags.map(tag => req.__(`tag_${tag}`));
       return { ...anuncio._doc, nombre: nombreTraducido, tags: tagsTraducidos };
     });
-
-    res.locals.getLocale = req.getLocale;
-    res.locals.__ = req.__;
 
     res.render('index', {
       title: req.__('title'),
@@ -121,17 +124,11 @@ exports.createAnuncio = async (req, res, next) => {
       nombre,
       venta,
       precio,
-      tags,
+      tags: tags.split(','),
       foto
     });
 
     await anuncio.save();
-
-    // Publicar una tarea en la cola para crear un thumbnail
-    publish('thumbnail', {
-      imagePath: path.join(__dirname, '../public/images/anuncios', foto),
-      thumbnailPath: path.join(__dirname, '../public/images/thumbnails', foto)
-    });
 
     res.status(201).json({ success: true, result: anuncio });
   } catch (error) {
@@ -164,6 +161,21 @@ exports.updateAnuncioFoto = async (req, res, next) => {
     });
 
     res.json({ success: true, result: anuncio });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.deleteAnuncio = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await Anuncio.findByIdAndDelete(id);
+
+    if (!result) {
+      return res.status(404).json({ success: false, message: 'Anuncio no encontrado' });
+    }
+
+    res.json({ success: true, message: 'Anuncio eliminado correctamente' });
   } catch (error) {
     next(error);
   }

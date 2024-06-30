@@ -16,7 +16,7 @@ conn.once('open', async () => {
 
     // Leer datos del archivo anuncios.json
     const data = fs.readFileSync('anuncios.json', 'utf8');
-    const anuncios = JSON.parse(data);
+    const anuncios = JSON.parse(data).anuncios; // Asegúrate de que los datos estén en un array llamado 'anuncios'
 
     // Eliminar todos los anuncios existentes
     await Anuncio.deleteMany({});

@@ -1,10 +1,10 @@
 <div class="header">
   <img src="/images/logo/logo.png" alt="Logo" height="50">
   <nav>
-    <a href="/"><%= __('home') %></a>
-    <a href="/api-docs"><%= __('api_docs') %></a>
-    <a href="/?venta=true"><%= __('sale_items') %></a>
-    <a href="/?venta=false"><%= __('search_items') %></a>
+    <a href="/?lang=<%= getLocale() %>"><%= __('home') %></a>
+    <a href="/api-docs?lang=<%= getLocale() %>"><%= __('api_docs') %></a>
+    <a href="/?venta=true&lang=<%= getLocale() %>"><%= __('sale_items') %></a>
+    <a href="/?venta=false&lang=<%= getLocale() %>"><%= __('search_items') %></a>
   </nav>
   <form method="get" action="/" class="form-inline">
     <select name="lang" onchange="this.form.submit()">
