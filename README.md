@@ -1,69 +1,125 @@
 # Nodepop
 
-Nodepop es una aplicación para la venta de artículos de segunda mano. Esta aplicación permite a los usuarios buscar y publicar anuncios de artículos en venta.
+Nodepop es una aplicación para la venta de artículos de segunda mano. Esta aplicación permite a los usuarios buscar artículos por nombre, tipo de anuncio (venta o búsqueda), rango de precio y etiquetas. También proporciona una API para interactuar con los anuncios.
+
+## Características
+
+- Listar anuncios con paginación.
+- Filtrar anuncios por nombre, tipo (venta o búsqueda), rango de precio y etiquetas.
+- Documentación de API con Swagger.
 
 ## Requisitos
 
-- [Node.js](https://nodejs.org/) (v14.x o superior)
-- [MongoDB](https://www.mongodb.com/) (v4.x o superior)
+- Node.js (v14.x o superior)
+- MongoDB
 
 ## Instalación
 
-Sigue estos pasos para clonar el repositorio, instalar las dependencias y configurar el entorno.
+1. Clona el repositorio:
+    ```sh
+    git clone https://github.com/carlotarubiralta/nodepop.git
+    cd nodepop
+    ```
 
-### 1. Clonar el repositorio
+2. Instala las dependencias:
+    ```sh
+    npm install
+    ```
 
-```sh
-git clone https://github.com/tuusuario/nodepop.git
-cd nodepop
+3. Configura las variables de entorno:
+    Crea un archivo `.env` en la raíz del proyecto y agrega las siguientes variables:
+    ```
+    PORT=3000
+    DB_URI=mongodb://localhost:27017/nodepop
+    ```
 
-```
+4. Inicia la aplicación:
+    ```sh
+    npm start
+    ```
 
-### 2. Instalar las dependencias
+    Esto iniciará el servidor en `http://localhost:3000`.
 
-```sh
-npm install
-```
+## Estructura del Proyecto
+nodepop/
+│
+├── config/
+│ └── db.js
+│
+├── controllers/
+│ └── anunciosController.js
+│
+├── models/
+│ └── Anuncio.js
+│
+├── routes/
+│ ├── index.js
+│ └── anuncios.js
+│
+├── public/
+│ ├── images/
+│ ├── javascripts/
+│ └── stylesheets/
+│ └── style.css
+│
+├── views/
+│ ├── _header.ejs
+│ ├── _footer.ejs
+│ ├── error.ejs
+│ └── index.ejs
+│
+├── .env
+├── app.js
+├── package.json
+└── README.md
 
-### 3. Configurar las variables de entorno
+## Uso
 
-```sh
-MONGODB_URI=mongodb://localhost:27017/nodepop
-```
+### Página Principal
 
-### 4. Inicializar la base de datos
+La página principal lista todos los anuncios con opciones de filtro. Puedes filtrar por:
 
-```sh
-npm run initDB
-```
+- Nombre
+- Tipo (venta o búsqueda)
+- Rango de precio
+- Etiquetas
 
-### 4. Iniciar la aplicación
+### API
 
-```sh
-npm start
-```
+La API permite interactuar con los anuncios mediante los siguientes endpoints:
 
-### Uso de la API
-La documentación completa de la API está disponible en http://localhost:3000/api-docs.
+#### Obtener lista de anuncios
 
-### Estructura del Proyecto
+GET /apiv1/anuncios
 
-app.js - Configuración principal de la aplicación.
-bin/www - Configuración del servidor.
-routes/ - Rutas de la aplicación.
-models/ - Modelos de datos de Mongoose.
-public/ - Archivos estáticos (CSS, JavaScript, imágenes).
-views/ - Plantillas EJS.
-Scripts Disponibles
-npm start - Inicia la aplicación.
-npm run initDB - Inicializa la base de datos con datos de ejemplo.
 
-### Contribuir
+Parámetros opcionales de consulta:
+- `nombre` - Filtrar por nombre.
+- `venta` - Filtrar por tipo de anuncio (true para venta, false para búsqueda).
+- `precioMin` - Precio mínimo.
+- `precioMax` - Precio máximo.
+- `tag` - Filtrar por etiqueta.
+- `start` - Índice de inicio para la paginación.
+- `limit` - Número máximo de resultados.
+- `sort` - Orden de los resultados.
 
-Si deseas contribuir a este proyecto, por favor sigue estos pasos:
+Ejemplo:
+GET /apiv1/anuncios?nombre=iphone&venta=true&precioMin=100&precioMax=500&tag=mobile
 
-Haz un fork del proyecto.
-Crea una rama con tu nueva característica (git checkout -b feature/nueva-caracteristica).
-Haz commit de tus cambios (git commit -am 'Añadir nueva característica').
-Sube tus cambios a tu rama (git push origin feature/nueva-caracteristica).
-Abre un Pull Request.
+
+### Documentación de la API
+
+La documentación de la API está disponible en:
+
+http://localhost:3000/api-docs
+
+
+## Contribuir
+
+Si deseas contribuir a este proyecto, por favor sigue los siguientes pasos:
+
+1. Haz un fork del proyecto.
+2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
+3. Realiza los cambios y haz commit (`git commit -m 'Añadir nueva funcionalidad'`).
+4. Sube los cambios a tu rama (`git push origin feature/nueva-funcionalidad`).
+5. Abre un Pull Request.

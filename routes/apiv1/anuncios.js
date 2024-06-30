@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Anuncio = require('../../models/Anuncio');
+const anunciosController = require('../../controllers/anunciosController');
+const auth = require('../../middlewares/auth');
 
 /**
  * @swagger
@@ -92,36 +93,6 @@ const Anuncio = require('../../models/Anuncio');
  *           description: Tags del artículo
  */
 
-router.get('/anuncios', async (req, res, next) => {
-  try {
-    const { nombre, venta, precio, tag, start = 0, limit = 10, sort = 'nombre' } = req.query;
-    const filters = {};
-
-    if (nombre) {
-      filters.nombre = new RegExp(`^${nombre}`, 'i'); // Filtrar por nombre que empiece con el dato buscado
-    }
-    if (venta !== undefined) {
-      filters.venta = venta === 'true'; // Filtrar por tipo de anuncio (venta o búsqueda)
-    }
-    if (precio) {
-      const [minPrecio, maxPrecio] = precio.split('-').map(Number);
-      filters.precio = {};
-      if (!isNaN(minPrecio)) filters.precio.$gte = minPrecio;
-      if (!isNaN(maxPrecio)) filters.precio.$lte = maxPrecio;
-    }
-    if (tag) {
-      filters.tags = tag; // Filtrar por tag
-    }
-
-    const anuncios = await Anuncio.find(filters)
-      .skip(Number(start))
-      .limit(Number(limit))
-      .sort(sort);
-
-    res.json({ success: true, results: anuncios });
-  } catch (err) {
-    next(err);
-  }
-});
+router.get('/anuncios', auth, anunciosController.getAnunciosAPI);
 
 module.exports = router;

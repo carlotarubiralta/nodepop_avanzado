@@ -6,15 +6,16 @@ const logger = require('morgan');
 const createError = require('http-errors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
-const connectMongoose = require('./lib/connectMongoose');
+const connectDB = require('./config/db');
 
 const indexRouter = require('./routes/index');
 const anunciosApiRouter = require('./routes/apiv1/anuncios');
+const authRouter = require('./routes/auth');
 
 const app = express();
 
 // Conectar a la base de datos
-connectMongoose();
+connectDB();
 
 // Configuración de Swagger
 const swaggerOptions = {
@@ -51,6 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Rutas
 app.use('/', indexRouter);
 app.use('/apiv1', anunciosApiRouter);
+app.use('/api', authRouter);
 
 // Ruta para la documentación de Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
