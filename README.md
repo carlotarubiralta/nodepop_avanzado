@@ -1,125 +1,101 @@
 # Nodepop
 
-Nodepop es una aplicación para la venta de artículos de segunda mano. Esta aplicación permite a los usuarios buscar artículos por nombre, tipo de anuncio (venta o búsqueda), rango de precio y etiquetas. También proporciona una API para interactuar con los anuncios.
+Nodepop es una aplicación de anuncios clasificados que permite a los usuarios buscar, vender y comprar artículos. La aplicación está construida con Node.js, Express y MongoDB, y proporciona un API que puede ser utilizado por otros desarrolladores para construir aplicaciones móviles o web.
 
 ## Características
 
-- Listar anuncios con paginación.
-- Filtrar anuncios por nombre, tipo (venta o búsqueda), rango de precio y etiquetas.
-- Documentación de API con Swagger.
+- Autenticación JWT
+- Internacionalización (Español e Inglés)
+- Subida de imágenes con generación de thumbnails en background
+- API para crear, listar y filtrar anuncios
 
 ## Requisitos
 
-- Node.js (v14.x o superior)
-- MongoDB
+- Node.js v14.17.0 o superior
+- MongoDB v4.4 o superior
 
 ## Instalación
 
 1. Clona el repositorio:
-    ```sh
-    git clone https://github.com/carlotarubiralta/nodepop.git
-    cd nodepop
-    ```
+   ```bash
+   git clone https://github.com/carlotarubiralta/nodepop_avanzado.git
+   cd nodepop_avanzado
 
 2. Instala las dependencias:
-    ```sh
-    npm install
-    ```
-
+```bash
+npm install
+```
 3. Configura las variables de entorno:
-    Crea un archivo `.env` en la raíz del proyecto y agrega las siguientes variables:
-    ```
-    PORT=3000
-    DB_URI=mongodb://localhost:27017/nodepop
-    ```
+Crea un archivo .env en la raíz del proyecto con el siguiente contenido:
+```bash
+env
+Copia el codi
+PORT=3000
+DB_URI=mongodb://localhost:27017/nodepop
+JWT_SECRET=your_jwt_secret
+```
+4. Inicializa la base de datos:
 
-4. Inicia la aplicación:
-    ```sh
-    npm start
-    ```
+```bash
+npm run initDB
+```
+5. Inicia la aplicación:
 
-    Esto iniciará el servidor en `http://localhost:3000`.
+```bash
+npm start
+```
+# Uso
 
-## Estructura del Proyecto
-nodepop/
-│
-├── config/
-│ └── db.js
-│
-├── controllers/
-│ └── anunciosController.js
-│
-├── models/
-│ └── Anuncio.js
-│
-├── routes/
-│ ├── index.js
-│ └── anuncios.js
-│
-├── public/
-│ ├── images/
-│ ├── javascripts/
-│ └── stylesheets/
-│ └── style.css
-│
-├── views/
-│ ├── _header.ejs
-│ ├── _footer.ejs
-│ ├── error.ejs
-│ └── index.ejs
-│
-├── .env
-├── app.js
-├── package.json
-└── README.md
+1. Endpoints
 
-## Uso
+Autenticación
+POST /api/authenticate: Autentica al usuario y devuelve un token JWT.
+```json
+{
+  "email": "user@example.com",
+  "password": "1234"
+}
+````
 
-### Página Principal
+Anuncios
+- GET /apiv1/anuncios: Lista de anuncios con filtros y paginación.
+Parámetros: tag, venta, precio, nombre, start, limit, sort
+- POST /apiv1/anuncios: Crea un nuevo anuncio.
+Campos: nombre, venta, precio, tags, foto
 
-La página principal lista todos los anuncios con opciones de filtro. Puedes filtrar por:
+2. Internacionalización
+La aplicación soporta Español e Inglés. Puedes cambiar el idioma usando el parámetro lang en las URLs.
 
-- Nombre
-- Tipo (venta o búsqueda)
-- Rango de precio
-- Etiquetas
+3. Subida de Imágenes
+Las imágenes subidas se procesan para generar thumbnails de 100x100 píxeles.
 
-### API
+# Estructura del Proyecto
+/bin: Contiene el archivo de inicio del servidor.
+/controllers: Contiene los controladores de la aplicación.
+/lib: Contiene configuraciones y utilidades (conexión a MongoDB, configuración de i18n, colas).
+/middlewares: Contiene middlewares para el manejo de archivos.
+/models: Contiene los modelos de datos.
+/public: Contiene archivos estáticos (imágenes, CSS).
+/routes: Contiene las rutas de la API.
+/tests: Contiene los archivos de pruebas.
+/views: Contiene las vistas y plantillas EJS.
+app.js: Configuración principal de la aplicación.
+package.json: Configuración del proyecto y dependencias.
 
-La API permite interactuar con los anuncios mediante los siguientes endpoints:
+# Pruebas
+Para ejecutar las pruebas:
+```bash
+npm test
+```
+# Despliegue
+Para desplegar la aplicación en producción, asegúrate de configurar correctamente las variables de entorno y usa un gestor de procesos como PM2:
 
-#### Obtener lista de anuncios
-
-GET /apiv1/anuncios
-
-
-Parámetros opcionales de consulta:
-- `nombre` - Filtrar por nombre.
-- `venta` - Filtrar por tipo de anuncio (true para venta, false para búsqueda).
-- `precioMin` - Precio mínimo.
-- `precioMax` - Precio máximo.
-- `tag` - Filtrar por etiqueta.
-- `start` - Índice de inicio para la paginación.
-- `limit` - Número máximo de resultados.
-- `sort` - Orden de los resultados.
-
-Ejemplo:
-GET /apiv1/anuncios?nombre=iphone&venta=true&precioMin=100&precioMax=500&tag=mobile
-
-
-### Documentación de la API
-
-La documentación de la API está disponible en:
-
-http://localhost:3000/api-docs
-
-
-## Contribuir
-
-Si deseas contribuir a este proyecto, por favor sigue los siguientes pasos:
-
-1. Haz un fork del proyecto.
-2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
-3. Realiza los cambios y haz commit (`git commit -m 'Añadir nueva funcionalidad'`).
-4. Sube los cambios a tu rama (`git push origin feature/nueva-funcionalidad`).
-5. Abre un Pull Request.
+```bash
+npm run devPM2
+```
+# Contribución
+Haz un fork del proyecto.
+Crea una nueva rama (git checkout -b feature-nueva-funcionalidad).
+Haz commit de tus cambios (git commit -am 'Añade nueva funcionalidad').
+Empuja la rama (git push origin feature-nueva-funcionalidad).
+Abre un Pull Request.
