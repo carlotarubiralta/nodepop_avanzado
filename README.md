@@ -28,8 +28,6 @@ npm install
 3. Configura las variables de entorno:
 Crea un archivo .env en la raíz del proyecto con el siguiente contenido:
 ```bash
-env
-Copia el codi
 PORT=3000
 DB_URI=mongodb://localhost:27017/nodepop
 JWT_SECRET=your_jwt_secret
@@ -71,16 +69,27 @@ Las imágenes subidas se procesan para generar thumbnails de 100x100 píxeles.
 
 # Estructura del Proyecto
 /bin: Contiene el archivo de inicio del servidor.
+
 /controllers: Contiene los controladores de la aplicación.
+
 /lib: Contiene configuraciones y utilidades (conexión a MongoDB, configuración de i18n, colas).
+
 /middlewares: Contiene middlewares para el manejo de archivos.
+
 /models: Contiene los modelos de datos.
+
 /public: Contiene archivos estáticos (imágenes, CSS).
+
 /routes: Contiene las rutas de la API.
+
 /tests: Contiene los archivos de pruebas.
+
 /views: Contiene las vistas y plantillas EJS.
+
 app.js: Configuración principal de la aplicación.
+
 package.json: Configuración del proyecto y dependencias.
+
 
 # Pruebas
 Para ejecutar las pruebas:
