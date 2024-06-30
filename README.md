@@ -90,6 +90,30 @@ app.js: Configuración principal de la aplicación.
 
 package.json: Configuración del proyecto y dependencias.
 
+nodepop_avanzado/
+├── config/
+│   └── db.js
+├── controllers/
+│   └── anunciosController.js
+├── lib/
+│   └── queue.js
+├── models/
+│   └── Anuncio.js
+├── public/
+│   └── images/
+│       └── anuncios/
+│       └── thumbnails/
+├── routes/
+│   └── index.js
+├── views/
+│   └── index.ejs
+├── .env
+├── .gitignore
+├── app.js
+├── package.json
+└── README.md
+
+
 
 # Pruebas
 Para ejecutar las pruebas:

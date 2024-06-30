@@ -2,6 +2,7 @@ const Anuncio = require('../models/Anuncio');
 const path = require('path');
 const { publish } = require('../lib/queue');
 
+// Obtener todos los anuncios
 exports.getAnuncios = async (req, res, next) => {
   try {
     const { nombre, venta, precioMin, precioMax, tag, page = 1, limit = 8, sort = '_id', lang } = req.query;
@@ -62,6 +63,7 @@ exports.getAnuncios = async (req, res, next) => {
   }
 };
 
+// Obtener anuncios para la API
 exports.getAnunciosAPI = async (req, res, next) => {
   try {
     const { nombre, venta, precioMin, precioMax, tag, page = 1, limit = 8, sort = '_id' } = req.query;
@@ -90,7 +92,7 @@ exports.getAnunciosAPI = async (req, res, next) => {
       .sort(sort);
 
     const totalAnuncios = await Anuncio.countDocuments(filters);
-    const totalPages = await Math.ceil(totalAnuncios / limit);
+    const totalPages = Math.ceil(totalAnuncios / limit);
 
     const anunciosTraducidos = anuncios.map(anuncio => {
       const nombreTraducido = req.getLocale() === 'en' ? (anuncio.traducciones.en || anuncio.nombre) : anuncio.nombre;
@@ -110,6 +112,7 @@ exports.getAnunciosAPI = async (req, res, next) => {
   }
 };
 
+// Crear un nuevo anuncio
 exports.createAnuncio = async (req, res, next) => {
   try {
     const { nombre, venta, precio, tags } = req.body;
@@ -131,11 +134,12 @@ exports.createAnuncio = async (req, res, next) => {
     await anuncio.save();
 
     res.status(201).json({ success: true, result: anuncio });
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };
 
+// Actualizar la foto de un anuncio
 exports.updateAnuncioFoto = async (req, res, next) => {
   try {
     const anuncioId = req.params.id;
@@ -161,11 +165,12 @@ exports.updateAnuncioFoto = async (req, res, next) => {
     });
 
     res.json({ success: true, result: anuncio });
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };
 
+// Eliminar un anuncio
 exports.deleteAnuncio = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -176,8 +181,7 @@ exports.deleteAnuncio = async (req, res, next) => {
     }
 
     res.json({ success: true, message: 'Anuncio eliminado correctamente' });
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };
-
