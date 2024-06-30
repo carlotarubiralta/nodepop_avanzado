@@ -5,161 +5,229 @@
       "venta": true,
       "precio": 700.00,
       "foto": "laptop.jpg",
-      "tags": ["work", "lifestyle"]
+      "tags": ["work", "lifestyle"],
+       "traducciones": {
+      "en": "Laptop"
+       }
     },
     {
       "nombre": "Televisor Samsung",
       "venta": true,
       "precio": 300.00,
       "foto": "tv.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+       "traducciones": {
+      "en": "Samsung TV"
+       },
     },
     {
       "nombre": "Auriculares Sony",
-      "venta": true,
-      "precio": 80.00,
+      "venta": false,
+      "precio": 80,
       "foto": "headphones.jpg",
-      "tags": ["lifestyle", "work"]
+      "tags": ["work", "lifestyle"],
+      "traducciones": {
+        "en": "Sony Headphones"
+      }
     },
     {
       "nombre": "Mochila de senderismo",
       "venta": true,
       "precio": 60.00,
       "foto": "backpack.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+      "traducciones": {
+        "en": "Backpack"
+      }
     },
     {
       "nombre": "Cámara Canon",
       "venta": true,
       "precio": 450.00,
       "foto": "camera.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+      "traducciones": {
+        "en": "Canon Camera"
+      }
     },
     {
       "nombre": "Smartwatch Garmin",
       "venta": true,
       "precio": 200.00,
       "foto": "smartwatch.jpg",
-      "tags": ["lifestyle", "mobile"]
+      "tags": ["lifestyle", "mobile"],
+      "traducciones": {
+        "en": "Smartwatch Garmin"
+      }
     },
     {
       "nombre": "Impresora HP",
       "venta": true,
       "precio": 120.00,
       "foto": "printer.jpg",
-      "tags": ["work"]
+      "tags": ["work"],"traducciones": {
+        "en": "Hp Printer"
+      }
     },
     {
       "nombre": "Mesa de comedor",
       "venta": true,
       "precio": 250.00,
       "foto": "table.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+      "traducciones": {
+        "en": "Table"
+      }
     },
     {
       "nombre": "Silla ergonómica",
       "venta": true,
       "precio": 150.00,
       "foto": "chair.jpg",
-      "tags": ["work"]
+      "tags": ["work"],
+      "traducciones": {
+        "en": "Egonomic chair"
+      }
     },
     {
       "nombre": "Lavadora LG",
       "venta": true,
       "precio": 400.00,
       "foto": "washing_machine.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+      "traducciones": {
+        "en": "LG Washing machine"
+      }
     },
     {
       "nombre": "Coche Toyota",
       "venta": true,
       "precio": 5000.00,
       "foto": "car.jpg",
-      "tags": ["motor"]
+      "tags": ["motor"],
+      "traducciones": {
+        "en": "Toyota car"
+      }
     },
     {
       "nombre": "Guitarra eléctrica",
       "venta": true,
       "precio": 300.00,
       "foto": "guitar.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+      "traducciones": {
+        "en": "Guitar"
+      }
     },
     {
       "nombre": "Bicicleta de carretera",
       "venta": true,
       "precio": 800.00,
       "foto": "road_bike.jpg",
-      "tags": ["lifestyle", "motor"]
+      "tags": ["lifestyle", "motor"],
+      "traducciones": {
+        "en": "Road bike"
+      }
     },
     {
       "nombre": "PlayStation 4",
       "venta": false,
       "precio": 250.00,
       "foto": "ps4.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+      "traducciones": {
+        "en": "Playstation 4"
+      }
     },
     {
       "nombre": "Xbox One",
       "venta": false,
       "precio": 200.00,
       "foto": "xbox.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+      "traducciones": {
+        "en": "Xbox One"
+      }
     },
     {
       "nombre": "Samsung Galaxy S10",
       "venta": false,
       "precio": 300.00,
       "foto": "galaxy_s10.jpg",
-      "tags": ["mobile"]
+      "tags": ["mobile"],
+      "traducciones": {
+        "en": "Samsung Galaxy S10"
+      }
     },
     {
       "nombre": "Tablet iPad",
       "venta": false,
       "precio": 400.00,
       "foto": "ipad.jpg",
-      "tags": ["mobile"]
+      "tags": ["mobile"],
+      "traducciones": {
+        "en": "iPad"
+      }
     },
     {
       "nombre": "Monitor Dell",
       "venta": false,
       "precio": 150.00,
       "foto": "monitor.jpg",
-      "tags": ["work"]
+      "tags": ["work"],
+      "traducciones": {
+        "en": "Dell Screen"
+      }
     },
     {
       "nombre": "Cámara Nikon",
       "venta": false,
       "precio": 500.00,
       "foto": "nikon_camera.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+      "traducciones": {
+        "en": "Nikon Camera"
+      }
     },
     {
       "nombre": "Altavoces Bose",
-      "venta": false,
-      "precio": 300.00,
+      "venta": true,
+      "precio": 300,
       "foto": "speakers.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+      "traducciones": {
+        "en": "Bose Speakers"
+      }
     },
     {
       "nombre": "Cafetera Nespresso",
       "venta": false,
       "precio": 100.00,
       "foto": "coffee_machine.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+      "traducciones": {
+        "en": "Nespresso Coffee Machine"
+      }
     },
     {
       "nombre": "Microondas Samsung",
       "venta": false,
       "precio": 80.00,
       "foto": "microwave.jpg",
-      "tags": ["lifestyle"]
+      "tags": ["lifestyle"],
+      "traducciones": {
+        "en": "Samsung Microve"
+      }
     },
     {
       "nombre": "Bicicleta de niño",
       "venta": false,
       "precio": 50.00,
       "foto": "kids_bike.jpg",
-      "tags": ["lifestyle", "motor"]
+      "tags": ["lifestyle", "motor"],
+      "traducciones": {
+        "en": "Kids Bike"
+      }
     }
   ]
 }

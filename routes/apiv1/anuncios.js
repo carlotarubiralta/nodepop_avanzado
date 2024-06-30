@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const anunciosController = require('../../controllers/anunciosController');
-const auth = require('../../middlewares/auth');
+const upload = require('../../middlewares/upload');
 
+// Swagger documentation
 /**
  * @swagger
  * /apiv1/anuncios:
@@ -93,6 +94,13 @@ const auth = require('../../middlewares/auth');
  *           description: Tags del artículo
  */
 
-router.get('/anuncios', auth, anunciosController.getAnunciosAPI);
+// Ruta para obtener anuncios
+router.get('/anuncios', anunciosController.getAnunciosAPI);
+
+// Ruta para la creación de anuncios con imagen
+router.post('/anuncios', upload.single('foto'), anunciosController.createAnuncio);
+
+// Ruta para actualizar la imagen de un anuncio existente
+router.put('/anuncios/:id/foto', upload.single('foto'), anunciosController.updateAnuncioFoto);
 
 module.exports = router;

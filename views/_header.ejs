@@ -1,9 +1,15 @@
 <div class="header">
-  <img src="/images/logo/logo.png" alt="Logo">
+  <img src="/images/logo/logo.png" alt="Logo" height="50">
   <nav>
-    <a href="/">Home</a>
-    <a href="/api-docs">API Docs</a>
-    <a href="/?venta=true">Productos en Venta</a>
-    <a href="/?venta=false">Productos en Búsqueda</a>
+    <a href="/"><%= __('home') %></a>
+    <a href="/api-docs"><%= __('api_docs') %></a>
+    <a href="/?venta=true"><%= __('sale_items') %></a>
+    <a href="/?venta=false"><%= __('search_items') %></a>
   </nav>
+  <form method="get" action="/" class="form-inline">
+    <select name="lang" onchange="this.form.submit()">
+      <option value="es" <%= getLocale() === 'es' ? 'selected' : '' %>>Español</option>
+      <option value="en" <%= getLocale() === 'en' ? 'selected' : '' %>>English</option>
+    </select>
+  </form>
 </div>

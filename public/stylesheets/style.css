@@ -120,7 +120,7 @@ button[type="submit"]:hover {
   color: white;
 }
 
-footer {
+.footer {
   background-color: #4CAF50;
   color: white;
   text-align: center;
@@ -130,6 +130,6 @@ footer {
   bottom: 0;
 }
 
-footer p {
+.footer p {
   margin: 0;
 }

@@ -7,12 +7,15 @@ const createError = require('http-errors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const connectDB = require('./config/db');
+const i18n = require('./lib/i18nSetup');
 
 const indexRouter = require('./routes/index');
 const anunciosApiRouter = require('./routes/apiv1/anuncios');
 const authRouter = require('./routes/auth');
 
 const app = express();
+
+app.use(i18n.init);
 
 // Conectar a la base de datos
 connectDB();
@@ -48,6 +51,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Configurar locales para las vistas
+app.use((req, res, next) => {
+  res.locals.__ = req.__; // Asignar __ para usarlo en las vistas
+  res.locals.getLocale = req.getLocale.bind(req); // Asegurar que getLocale esté disponible en las vistas
+  next();
+});
 
 // Rutas
 app.use('/', indexRouter);
