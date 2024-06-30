@@ -1,3 +1,5 @@
+'use strict';
+
 const cote = require('cote');
 const Jimp = require('jimp');
 const path = require('path');

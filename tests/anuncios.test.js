@@ -1,5 +1,7 @@
+'use strict';
+
 const request = require('supertest');
-const app = require('../app');  // Asegúrate de que el camino hacia tu archivo app.js sea correcto
+const app = require('../app');
 
 describe('GET /apiv1/anuncios', () => {
   it('should return a list of anuncios', async () => {

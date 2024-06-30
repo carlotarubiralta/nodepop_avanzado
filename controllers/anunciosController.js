@@ -1,3 +1,5 @@
+'use strict';
+
 const Anuncio = require('../models/Anuncio');
 const path = require('path');
 const { publish } = require('../lib/queue');
